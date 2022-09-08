@@ -1,9 +1,11 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
+import ReactPlayer from "react-player";
 
 const Home: NextPage = () => {
   const [deviceIds, setDeviceIds] = useState<any>();
   const [deviceData, setDeviceData] = useState<any>();
+  const [dataFile, setDataFile] = useState<any>();
 
   useEffect(() => {
     const fetchDeviceIds = async () => {
@@ -28,12 +30,14 @@ const Home: NextPage = () => {
       (async () => {
         const req = await fetch(`/api?endpoint=${data.output.cvmdata}`);
         const res = await req.json();
-        console.log(res);
+        setDataFile([res]);
       })();
     };
 
     fetchDeviceData();
   }, []);
+
+  console.log(dataFile)
 
   return (
     <div className={"container"}>
@@ -47,20 +51,34 @@ const Home: NextPage = () => {
 
       {deviceData && deviceData ? (
         <div>
-          {deviceData.map((deviceIds: any, i: number) => {
+          {deviceData.map((deviceData: any, i: number) => {
             return (
               <div key={i}>
-                <ul>
-                  <li>{deviceIds.cvmdata}</li>
-                </ul>
-                <video>
-                  <source src={deviceIds.videofiles} type="video/mp4" />
-                </video>
+                <ReactPlayer url={deviceData.videofiles} controls={true}/>
+                {/* <video>
+                  <source src={deviceData.videofiles} type="video/mp4" />
+                </video> */}
               </div>
             );
           })}
         </div>
+
+        
       ) : null}
+
+{dataFile && dataFile ? <div>{dataFile[0].frame_data[0].avgB}</div> : null}
+
+      {/* {dataFile && dataFile ? (
+        <div>
+          {dataFile.map((dataFiles: any, i: number) => {
+            return (
+              <div >
+                <ul> <li key={i}> [{dataFiles.frame_data}]</li> </ul>.
+              </div>
+            );
+          })}
+        </div>
+      ) : null} */}
     </div>
   );
 };
