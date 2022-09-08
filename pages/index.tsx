@@ -24,6 +24,12 @@ const Home: NextPage = () => {
       );
       const data = await response.json();
       setDeviceData([data.output]);
+
+      (async () => {
+        const req = await fetch(`/api?endpoint=${data.output.cvmdata}`);
+        const res = await req.json();
+        console.log(res);
+      })();
     };
 
     fetchDeviceData();
