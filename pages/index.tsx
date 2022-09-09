@@ -40,27 +40,45 @@ const Home: NextPage = () => {
   const [stamp, setStamp] = useState<any>();
 
   const handleProgress = (state: any) => {
-
     setStamp(state.playedSeconds);
   };
 
-  console.log(dataFile)
-  console.log((Math.round(stamp*12)-1));
+  console.log(dataFile);
+  console.log(Math.round(stamp * 12) - 1);
+
+  const r =
+    dataFile &&
+    dataFile[0].frame_data[stamp && stamp ? Math.round(stamp * 12) - 1 : 0]
+      .avgR;
+
+  const g =
+    dataFile &&
+    dataFile[0].frame_data[stamp && stamp ? Math.round(stamp * 12) - 1 : 0]
+      .avgG;
+
+  const b =
+    dataFile &&
+    dataFile[0].frame_data[stamp && stamp ? Math.round(stamp * 12) - 1 : 0]
+      .avgB;
+
+  const hist =
+    dataFile &&
+    dataFile[0].frame_data[stamp && stamp ? Math.round(stamp * 12) - 1 : 0]
+      .histDiff;
 
 
   return (
     <div className={"container"}>
-      {deviceIds && deviceIds ? (
-        <div>
-          {deviceIds.map((deviceIds: any, i: number) => {
+      <div>
+        {deviceIds &&
+          deviceIds.map((deviceIds: any, i: number) => {
             return <div key={i}>{deviceIds}</div>;
           })}
-        </div>
-      ) : null}
+      </div>
 
-      {deviceData && deviceData ? (
-        <div>
-          {deviceData.map((deviceData: any, i: number) => {
+      <div>
+        {deviceData &&
+          deviceData.map((deviceData: any, i: number) => {
             return (
               <div key={i}>
                 <ReactPlayer
@@ -71,16 +89,18 @@ const Home: NextPage = () => {
               </div>
             );
           })}
-        </div>
-      ) : null}
+      </div>
 
-<div>{dataFile && dataFile[0].frame_data[stamp && stamp ? (Math.round(stamp*12)-1):0].avgR}</div>
-<div>{dataFile && dataFile[0].frame_data[stamp && stamp ? (Math.round(stamp*12)-1):0].avgG}</div>
-<div>{dataFile && dataFile[0].frame_data[stamp && stamp ? (Math.round(stamp*12)-1):0].avgB}</div>
+      <div>Frame Information in seconds</div>
+      <div>{r}</div>
+      <div>{g}</div>
+      <div>{b}</div>
+      <div>{hist}</div>
 
-<div className="h-5 w-5 " style={{backgroundColor:"rgb()"}}></div>
-
-
+      <div>{dataFile && dataFile[0].RoI[0]}</div>
+      <div>{dataFile && dataFile[0].RoI[1]}</div>
+      <div>{dataFile && dataFile[0].RoI[2]}</div>
+      <div>{dataFile && dataFile[0].RoI[3]}</div>
     </div>
   );
 };
