@@ -1,10 +1,25 @@
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 
+interface DeviceProps {
+  cvmdata: string;
+  videofiles: string;
+}
+
+interface DataProps {
+  RoI: number[];
+  frame_data: {
+    avgR: number;
+    avgG: number;
+    avgB: number;
+    histDiff: number;
+  }[];
+}
+
 export const DeviceData = () => {
-  const [deviceData, setDeviceData] = useState<any>();
-  const [dataFile, setDataFile] = useState<any>();
-  const [stamp, setStamp] = useState<any>();
+  const [deviceData, setDeviceData] = useState<DeviceProps[]>();
+  const [dataFile, setDataFile] = useState<DataProps[]>();
+  const [stamp, setStamp] = useState<number>();
 
   useEffect(() => {
     const fetchDeviceData = async () => {
@@ -24,7 +39,12 @@ export const DeviceData = () => {
     fetchDeviceData();
   }, []);
 
-  const handleProgress = (state: any) => {
+  const handleProgress = (state: {
+    played: number;
+    playedSeconds: number;
+    loaded: number;
+    loadedSeconds: number;
+  }) => {
     setStamp(state.playedSeconds);
   };
 
@@ -52,7 +72,7 @@ export const DeviceData = () => {
     <>
       <div>
         {deviceData &&
-          deviceData.map((deviceData: any, i: number) => {
+          deviceData.map((deviceData: DeviceProps, i: number) => {
             return (
               <div key={i}>
                 <ReactPlayer

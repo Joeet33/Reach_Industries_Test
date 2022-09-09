@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export const DeviceIds = () => {
-  const [deviceIds, setDeviceIds] = useState<any>();
+  const [deviceIds, setDeviceIds] = useState<string[]>();
 
   useEffect(() => {
     const fetchDeviceIds = async () => {
@@ -18,7 +18,7 @@ export const DeviceIds = () => {
   return (
     <div>
       {deviceIds &&
-        deviceIds.map((deviceIds: any, i: number) => {
+        deviceIds.map((deviceIds: string, i: number) => {
           return <div key={i}>{deviceIds}</div>;
         })}
     </div>

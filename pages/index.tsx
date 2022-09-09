@@ -1,6 +1,4 @@
 import type { NextPage } from "next";
-import { useEffect, useState } from "react";
-import ReactPlayer from "react-player";
 import { DeviceData } from "../components/deviceData";
 import { DeviceIds } from "../components/deviceIds";
 
