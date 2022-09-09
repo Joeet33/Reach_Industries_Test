@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
 
 const Home: NextPage = () => {
@@ -37,7 +37,16 @@ const Home: NextPage = () => {
     fetchDeviceData();
   }, []);
 
+  const [stamp, setStamp] = useState<any>();
+
+  const handleProgress = (state: any) => {
+
+    setStamp(state.playedSeconds);
+  };
+
   console.log(dataFile)
+  console.log((Math.round(stamp*12)-1));
+
 
   return (
     <div className={"container"}>
@@ -54,31 +63,24 @@ const Home: NextPage = () => {
           {deviceData.map((deviceData: any, i: number) => {
             return (
               <div key={i}>
-                <ReactPlayer url={deviceData.videofiles} controls={true}/>
-                {/* <video>
-                  <source src={deviceData.videofiles} type="video/mp4" />
-                </video> */}
+                <ReactPlayer
+                  url={deviceData.videofiles}
+                  controls={true}
+                  onProgress={handleProgress}
+                />
               </div>
             );
           })}
         </div>
-
-        
       ) : null}
 
-{dataFile && dataFile ? <div>{dataFile[0].frame_data[0].avgB}</div> : null}
+<div>{dataFile && dataFile[0].frame_data[stamp && stamp ? (Math.round(stamp*12)-1):0].avgR}</div>
+<div>{dataFile && dataFile[0].frame_data[stamp && stamp ? (Math.round(stamp*12)-1):0].avgG}</div>
+<div>{dataFile && dataFile[0].frame_data[stamp && stamp ? (Math.round(stamp*12)-1):0].avgB}</div>
 
-      {/* {dataFile && dataFile ? (
-        <div>
-          {dataFile.map((dataFiles: any, i: number) => {
-            return (
-              <div >
-                <ul> <li key={i}> [{dataFiles.frame_data}]</li> </ul>.
-              </div>
-            );
-          })}
-        </div>
-      ) : null} */}
+<div className="h-5 w-5 " style={{backgroundColor:"rgb()"}}></div>
+
+
     </div>
   );
 };
