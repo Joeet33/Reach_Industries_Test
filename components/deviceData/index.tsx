@@ -97,12 +97,12 @@ export const DeviceData = () => {
       </div>
 
       <div className="flex flex-col m-auto w-4/12 border-solid border-8 border-navy-blue rounded mt-4">
-        <div className="text-center">Frame Information in Seconds</div>
+        <div className="text-center font-bold text-light-blue text-lg">Frame Information in Seconds</div>
         <div className="flex flex-row w-full px-2.5">
           <div className="flex flex-col w-9/12">
-            <div className="py-1">Histogram: {hist}</div>
-            <div>Frame: {frames}</div>
-            <div className="flex flex-row py-1">
+            <div className="py-1 text-blue">Histogram: {hist}</div>
+            <div className="text-blue">Frame: {frames}</div>
+            <div className="flex flex-row py-1 text-blue">
               <div className="pr-1">Bounding Box:</div>
               <div className="pr-1">{dataFile && dataFile[0].RoI[3]}</div>
               <div className="pr-1">{dataFile && dataFile[0].RoI[1]}</div>
@@ -115,14 +115,14 @@ export const DeviceData = () => {
             <div>
               <div className="flex flex-col">
                 <div className="flex justify-center space-x-4">
-                  <div>R</div>
-                  <div>G</div>
-                  <div>B</div>
+                  <div className="text-red-800">R</div>
+                  <div className="text-green-800">G</div>
+                  <div className="text-blue">B</div>
                 </div>
                 <div className="flex justify-center space-x-1">
-                  <div>{r}</div>
-                  <div>{g}</div>
-                  <div>{b}</div>
+                  <div className="text-red-800">{r}</div>
+                  <div className="text-green-800">{g}</div>
+                  <div className="text-blue">{b}</div>
                 </div>
               </div>
             </div>

@@ -16,11 +16,10 @@ export const DeviceIds = () => {
   }, []);
 
   return (
-    <div>
-      {deviceIds &&
-        deviceIds.map((deviceIds: string, i: number) => {
-          return <div key={i}>{deviceIds}</div>;
-        })}
+    <div className="text-center font-bold text-xl">
+      <div>Id: {deviceIds && deviceIds[0]}</div>
+      <div>Id: {deviceIds && deviceIds[1]}</div>
+      <div>Id: {deviceIds && deviceIds[2]}</div>
     </div>
   );
 };
