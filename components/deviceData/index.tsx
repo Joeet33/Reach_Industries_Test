@@ -63,22 +63,22 @@ export const DeviceData = () => {
   const colorBox = [r, g, b];
 
   return (
-    <>
+    <div className="container">
       <div>
         {deviceData &&
           deviceData.map((deviceData: DeviceProps, i: number) => {
             return (
               <div
                 key={i}
-                className="w-min m-auto border-solid border-8 border-light-blue rounded"
+                className="w-min m-auto border-solid border-8 border-light-blue rounded relative"
               >
                 <div
                   style={{
-                    position: "relative",
-                    left: "296px",
-                    top: "394px",
-                    height: "175px",
-                    width: "114px",
+                    position: "absolute",
+                    width: `${dataFile && dataFile[0].RoI[3]}px`,
+                    right: `${dataFile && dataFile[0].RoI[1]}px`,
+                    height: `${dataFile && dataFile[0].RoI[2]}px`,
+                    top: `${dataFile && dataFile[0].RoI[3]}px`,
                     borderStyle: "solid",
                     borderColor: "yellow",
                     borderWidth: "medium",
@@ -89,7 +89,7 @@ export const DeviceData = () => {
                   url={deviceData.videofiles}
                   controls={true}
                   onProgress={handleProgress}
-                  className=""
+                  style={{ position: "relative" }}
                 />
               </div>
             );
@@ -97,14 +97,14 @@ export const DeviceData = () => {
       </div>
 
       <div className="flex flex-col m-auto w-4/12 border-solid border-8 border-navy-blue rounded mt-4">
-        <div className="text-center">Frame Information in seconds</div>
+        <div className="text-center">Frame Information in Seconds</div>
         <div className="flex flex-row w-full px-2.5">
           <div className="flex flex-col w-9/12">
             <div className="py-1">Histogram: {hist}</div>
             <div>Frame: {frames}</div>
             <div className="flex flex-row py-1">
               <div className="pr-1">Bounding Box:</div>
-              <div className="pr-1">{dataFile && dataFile[0].RoI[0]}</div>
+              <div className="pr-1">{dataFile && dataFile[0].RoI[3]}</div>
               <div className="pr-1">{dataFile && dataFile[0].RoI[1]}</div>
               <div className="pr-1">{dataFile && dataFile[0].RoI[2]}</div>
               <div className="pr-1">{dataFile && dataFile[0].RoI[3]}</div>
@@ -135,6 +135,6 @@ export const DeviceData = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
