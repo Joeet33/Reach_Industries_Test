@@ -48,27 +48,19 @@ export const DeviceData = () => {
     setStamp(state.playedSeconds);
   };
 
-  const r =
-    dataFile &&
-    dataFile[0].frame_data[stamp && stamp ? Math.round(stamp * 12) - 1 : 0]
-      .avgR;
-
-  const g =
-    dataFile &&
-    dataFile[0].frame_data[stamp && stamp ? Math.round(stamp * 12) - 1 : 0]
-      .avgG;
-
-  const b =
-    dataFile &&
-    dataFile[0].frame_data[stamp && stamp ? Math.round(stamp * 12) - 1 : 0]
-      .avgB;
-
-  const hist =
-    dataFile &&
-    dataFile[0].frame_data[stamp && stamp ? Math.round(stamp * 12) - 1 : 0]
-      .histDiff;
-
   const frames = stamp && stamp ? Math.round(stamp * 12) - 1 : 0;
+
+  const redData = dataFile && dataFile[0].frame_data[frames].avgR;
+  const greenData = dataFile && dataFile[0].frame_data[frames].avgG;
+  const blueData = dataFile && dataFile[0].frame_data[frames].avgB;
+
+  const hist = dataFile && dataFile[0].frame_data[frames].histDiff;
+
+  const r = Math.round(redData && redData ? redData : 0);
+  const g = Math.round(greenData && greenData ? greenData : 0);
+  const b = Math.round(blueData && blueData ? blueData : 0);
+
+  const colorBox = [r, g, b];
 
   return (
     <>
@@ -80,6 +72,19 @@ export const DeviceData = () => {
                 key={i}
                 className="w-min m-auto border-solid border-8 border-light-blue rounded"
               >
+                <div
+                  style={{
+                    position: "relative",
+                    left: "296px",
+                    top: "394px",
+                    height: "175px",
+                    width: "114px",
+                    borderStyle: "solid",
+                    borderColor: "yellow",
+                    borderWidth: "medium",
+                    zIndex: "10",
+                  }}
+                ></div>
                 <ReactPlayer
                   url={deviceData.videofiles}
                   controls={true}
@@ -105,25 +110,28 @@ export const DeviceData = () => {
               <div className="pr-1">{dataFile && dataFile[0].RoI[3]}</div>
             </div>
           </div>
-          <div className="flex flex-row py-1 text-center justify-end w-3/12">
-            {r && r ? (
-              <div className="px-1 text-red-800">
-                <div>R</div>
-                {Math.round(r)}
+          <div className="flex flex-col w-3/12">
+            <div className="flex flex-row py-1 text-center"></div>
+            <div>
+              <div className="flex flex-col">
+                <div className="flex justify-center space-x-4">
+                  <div>R</div>
+                  <div>G</div>
+                  <div>B</div>
+                </div>
+                <div className="flex justify-center space-x-1">
+                  <div>{r}</div>
+                  <div>{g}</div>
+                  <div>{b}</div>
+                </div>
               </div>
-            ) : null}
-            {g && g ? (
-              <div className="px-1 text-green-800">
-                <div>G</div>
-                {Math.round(g)}
-              </div>
-            ) : null}
-            {b && b ? (
-              <div className="px-1 text-blue">
-                <div>B</div>
-                {Math.round(b)}
-              </div>
-            ) : null}
+            </div>
+            <div
+              className="text-center"
+              style={{ backgroundColor: `rgb(${colorBox})` }}
+            >
+              RGB
+            </div>
           </div>
         </div>
       </div>
